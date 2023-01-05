@@ -15,8 +15,16 @@ function assertCurl() {
 
   local expectedHttpCode=$1
   local curlCmd="$2 -w \"%{http_code}\""
+
+  echo "curl CMD = $curlCmd"
+
   local result=$(eval $curlCmd)
+
+  echo "result = $result"
   local httpCode="${result:(-3)}"
+
+  echo "httpCode = ${result:(-4)}"
+
   RESPONSE='' && (( ${#result} > 3 )) && RESPONSE="${result%???}"
 
   if [ "$httpCode" = "$expectedHttpCode" ]
